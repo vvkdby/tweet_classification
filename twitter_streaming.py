@@ -33,10 +33,10 @@ if __name__ == '__main__':
 
     #This line filter Twitter Streams to capture data by the following keywords
     #stream.filter(track=['classroom' ,'education','school','college','university'])
-    stream.filter(track=['business', 'marketing', 'advertisement', 'buy','sell','co-founder','entrepreneurship'])
-    #stream.filter(track=['entertainment'])
-    #stream.filter(track=['technology'])
-    #stream.filter(track=['environment'])
+    #stream.filter(track=['business', 'marketing', 'advertisement', 'buy','sell','co-founder','entrepreneurship'])
+    #stream.filter(track=['entertainment','movies','sports','TV','Hollywood','Opera'])
+    #stream.filter(track=['technology','science','technology','gadgets','machines','software','hardware'])
+    stream.filter(track=['environment','nature','earth','plants','animals','planet','greenhouse','air'])
 
 stop = timeit.default_timer()
 print stop-start 
