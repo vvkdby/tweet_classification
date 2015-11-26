@@ -9,13 +9,13 @@ tweets_data = []
 tweets_file = open(tweets_data_path,'r')
 for line in tweets_file:
     try:
-        tweet = json.load(line)
+        tweet = json.loads(line)
         tweets_data.append(tweet)
     except:
         continue
 stop = timeit.default_timer()
-print "The parsing of all the file took a total of %d seconds" %(stop-start)
+print "The parsing of all the tweets in JSON format took a total of %d seconds" %(stop-start)
 print len(tweets_data)
 tweets = pd.DataFrame()
-tweets.head(10)
+print tweets
 
