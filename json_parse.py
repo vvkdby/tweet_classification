@@ -17,5 +17,7 @@ stop = timeit.default_timer()
 print "The parsing of all the tweets in JSON format took a total of %d seconds" %(stop-start)
 print len(tweets_data)
 tweets = pd.DataFrame()
-print tweets
 
+tweets['text'] = map(lambda tweet: tweet.get('text',None), tweets_data)
+tweets['user'] = map(lambda tweet: tweet.get('user', {}).get('name'),tweets_data)
+print tweets.head(10)
