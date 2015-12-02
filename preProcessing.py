@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 import string
 from nltk.stem.wordnet import WordNetLemmatizer
 import json
+import simplejson
 
 
 punctuation = list(string.punctuation)
@@ -27,7 +28,8 @@ regex_str = [
     r'http[s]?://(?:[a-z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-f][0-9a-f]))+', # URLs
 
     r'(?:(?:\d+,?)+(?:\.?\d+)?)', # numbers
-    r"(?:[a-z][a-z'\-_]+[a-z])", # words with - and '
+    # r"(?:[a-z][a-z'\-_]+[a-z])", # words with - and '
+    r"(?:[a-z][a-z\-_]+[a-z])", # words with - and '
     r'(?:[\w_]+)', # other words
     r'(?:\S)' # anything else
 ]
@@ -63,25 +65,28 @@ X_TrainMain=[]
 
 with open('sample_data.txt', 'r') as f:
     for line in f:
-        print line
-        tweet = json.loads(line)
+        # tweet = json.loads(line)
+        tweet = simplejson.loads(line)
         # tokens = preprocess(tweet['text'])
         tokens=[lmtzr.lemmatize(term) for term in preprocess(tweet['text']) if term not in stop]
+        print tokens
 
-        X_Train=[0]*25
+        X_Train=[0]*32
         for subClass in tokens:
+            subClass=subClass.lower()
             if subClass in business:
                 X_Train[business.index(subClass)]=1
             if subClass in education:
-                X_Train[education.index(subClass)+5]=1
+                X_Train[education.index(subClass)+7]=1
             if subClass in entertainment:
-                X_Train[entertainment.index(subClass)+10]=1
+                X_Train[entertainment.index(subClass)+12]=1
             if subClass in technology:
-                X_Train[technology.index(subClass)+15]=1
+                X_Train[technology.index(subClass)+18]=1
             if subClass in environment:
-                X_Train[environment.index(subClass)+20]=1
+                X_Train[environment.index(subClass)+24]=1
 
         X_TrainMain.append(X_Train)
+        print X_Train
 
 
 print X_TrainMain
