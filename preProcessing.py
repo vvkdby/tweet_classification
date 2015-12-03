@@ -7,6 +7,8 @@ from nltk.stem.wordnet import WordNetLemmatizer
 import json
 import simplejson
 import pandas
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import LinearSVC
 
 
 punctuation = list(string.punctuation)
@@ -109,3 +111,13 @@ print Y_TrainMain
 df = pandas.DataFrame(X_TrainMain)
 df['y']=Y_TrainMain
 print df
+
+
+
+
+
+
+
+
+#model = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_TrainMain,Y_TrainMain)
+#print model.predict(X_TrainMain)
