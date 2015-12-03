@@ -6,10 +6,10 @@ from tweepy import Stream
 
 
 #Variables that contains the user credentials to access Twitter API
-access_token = "1393149704-myE7HPjI0x0jRmGXcEw2aag5fsyblNRWQaZU7wZ"
-access_token_secret = "MDE2tPpSSWoVkdwUNdgymwbhtCYHrYk88AGxpSTTYm7CT"
-consumer_key = "8bohnVjqvmiEXRXw4pph2T4go"
-consumer_secret = "H7Qc6krY9rbIZpUg03AXb93huNsJe7xd4a2PzutYTpz3uzSLSJ"
+access_token = input("Enter the access token: ")
+access_token_secret = input("Enter the access token secret: ")
+consumer_key = input("Enter the consumer key: ")
+consumer_secret = input("Enter consumer secret: ")
 
 start = timeit.default_timer()
 #This is a basic listener that just prints received tweets to stdout.
@@ -35,8 +35,8 @@ if __name__ == '__main__':
     #stream.filter(track=['classroom' ,'education','school','college','university'])
     #stream.filter(track=['business', 'marketing', 'advertisement', 'buy','sell','co-founder','entrepreneurship'])
     #stream.filter(track=['entertainment','movies','sports','TV','Hollywood','Opera'])
-    #stream.filter(track=['technology','science','technology','gadgets','machines','software','hardware'])
-    stream.filter(track=['environment','nature','earth','plants','animals','planet','greenhouse','air'])
+    #stream.filter(track=['technology','science','gadgets','machines','software','hardware'])
+    #stream.filter(track=['environment','nature','earth','plants','animals','planet','greenhouse','air'])
 
 stop = timeit.default_timer()
 print stop-start 
