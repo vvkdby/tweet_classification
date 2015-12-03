@@ -6,6 +6,7 @@ import string
 from nltk.stem.wordnet import WordNetLemmatizer
 import json
 import simplejson
+import pandas
 
 
 punctuation = list(string.punctuation)
@@ -46,14 +47,14 @@ def preprocess(s, lowercase=False):
         tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
     return tokens
 
-str="RT @McDonALDUBsa7: cars feet  fantasized Besides the Kilig, Galing talaga marketing genius ng @EatBulaga Tamang Panahon. Lubog Brand X\n#ALDUBPleaseDontGo https:\/\u2026"
-
-# print preprocess(str)
-
-
-tokenizedTweetLemma= [lmtzr.lemmatize(term) for term in preprocess(str) if term not in stop]
-
-print tokenizedTweetLemma
+# str="RT @McDonALDUBsa7: cars feet  fantasized Besides the Kilig, Galing talaga marketing genius ng @EatBulaga Tamang Panahon. Lubog Brand X\n#ALDUBPleaseDontGo https:\/\u2026"
+#
+# # print preprocess(str)
+#
+#
+# tokenizedTweetLemma= [lmtzr.lemmatize(term) for term in preprocess(str) if term not in stop]
+#
+# print tokenizedTweetLemma
 
 business=['business', 'marketing', 'advertisement', 'buy','sell','co-founder','entrepreneurship']
 education=['classroom' ,'education','school','college','university']
@@ -62,16 +63,21 @@ technology=['technology','science','gadgets','machines','software','hardware']
 environment=['environment','nature','earth','plants','animals','planet','greenhouse','air']
 
 X_TrainMain=[]
+Y_TrainMain=[]
 
 with open('sample_data.txt', 'r') as f:
     for line in f:
+        if not line.strip():
+            continue
         # tweet = json.loads(line)
+        print line
         tweet = simplejson.loads(line)
         # tokens = preprocess(tweet['text'])
         tokens=[lmtzr.lemmatize(term) for term in preprocess(tweet['text']) if term not in stop]
         print tokens
 
         X_Train=[0]*32
+        Y_Train=[1]
         for subClass in tokens:
             subClass=subClass.lower()
             if subClass in business:
@@ -86,7 +92,11 @@ with open('sample_data.txt', 'r') as f:
                 X_Train[environment.index(subClass)+24]=1
 
         X_TrainMain.append(X_Train)
-        print X_Train
+        Y_TrainMain.append(Y_Train)
+
+        # print X_Train
 
 
-print X_TrainMain
+# print X_TrainMain
+df = pandas.DataFrame(X_TrainMain)
+print df
