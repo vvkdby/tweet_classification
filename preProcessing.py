@@ -65,19 +65,27 @@ environment=['environment','nature','earth','plants','animals','planet','greenho
 X_TrainMain=[]
 Y_TrainMain=[]
 
+
+
 with open('sample_data.txt', 'r') as f:
     for line in f:
         if not line.strip():
             continue
         # tweet = json.loads(line)
-        print line
-        tweet = simplejson.loads(line)
+        # print line
+        tweet = json.loads(line)
         # tokens = preprocess(tweet['text'])
-        tokens=[lmtzr.lemmatize(term) for term in preprocess(tweet['text']) if term not in stop]
-        print tokens
-
+        #Feature vector per tweet.
         X_Train=[0]*32
-        Y_Train=[1]
+        #Target variable per tweet.
+        Y_Train=1
+
+        if 'text' not in tweet:
+            continue
+
+        tokens=[lmtzr.lemmatize(term) for term in preprocess(tweet['text']) if term not in stop]
+        # print tokens
+
         for subClass in tokens:
             subClass=subClass.lower()
             if subClass in business:
@@ -96,7 +104,8 @@ with open('sample_data.txt', 'r') as f:
 
         # print X_Train
 
-
+print Y_TrainMain
 # print X_TrainMain
 df = pandas.DataFrame(X_TrainMain)
+df['y']=Y_TrainMain
 print df
