@@ -7,6 +7,8 @@ from nltk.stem.wordnet import WordNetLemmatizer
 import json
 import simplejson
 import pandas
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import LinearSVC
 
 
 punctuation = list(string.punctuation)
@@ -120,3 +122,14 @@ X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_entertainment.txt",X_T
 X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_technology.txt",X_TrainMain,Y_TrainMain)
 X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_environment.txt",X_TrainMain,Y_TrainMain)
 
+
+
+
+
+
+
+
+
+
+model = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_TrainMain,Y_TrainMain)
+print model.predict(X_TrainMain)
