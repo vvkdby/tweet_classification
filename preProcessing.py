@@ -7,8 +7,8 @@ from nltk.stem.wordnet import WordNetLemmatizer
 import json
 import simplejson
 import pandas
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.svm import LinearSVC
+# from sklearn.multiclass import OneVsRestClassifier
+# from sklearn.svm import LinearSVC
 
 
 punctuation = list(string.punctuation)
@@ -65,7 +65,7 @@ technology=['technology','science','gadgets','machines','software','hardware']
 environment=['environment','nature','earth','plants','animals','planet','greenhouse','air']
 
 
-def createFeatureVector(filename,X_TrainMain,Y_TrainMain):
+def createFeatureVector(filename,X_TrainMain,Y_TrainMain,label):
 
     with open(filename, 'r') as f:
         for line in f:
@@ -78,7 +78,7 @@ def createFeatureVector(filename,X_TrainMain,Y_TrainMain):
             #Feature vector per tweet.
             X_Train=[0]*32
             #Target variable per tweet.
-            Y_Train=1
+            Y_Train=label
 
             if 'text' not in tweet:
                 continue
@@ -116,11 +116,11 @@ def createFeatureVector(filename,X_TrainMain,Y_TrainMain):
 X_TrainMain=[]
 Y_TrainMain=[]
 
-X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_business.txt",X_TrainMain,Y_TrainMain)
-X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_education.txt",X_TrainMain,Y_TrainMain)
-X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_entertainment.txt",X_TrainMain,Y_TrainMain)
-X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_technology.txt",X_TrainMain,Y_TrainMain)
-X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_environment.txt",X_TrainMain,Y_TrainMain)
+X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_business.txt",X_TrainMain,Y_TrainMain,1)
+X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_education.txt",X_TrainMain,Y_TrainMain,2)
+X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_entertainment.txt",X_TrainMain,Y_TrainMain,3)
+X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_technology.txt",X_TrainMain,Y_TrainMain,4)
+X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_environment.txt",X_TrainMain,Y_TrainMain,5)
 
 
 
@@ -131,5 +131,5 @@ X_TrainMain,Y_TrainMain=createFeatureVector("twitter_data_environment.txt",X_Tra
 
 
 
-model = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_TrainMain,Y_TrainMain)
-print model.predict(X_TrainMain)
+# model = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_TrainMain,Y_TrainMain)
+# print model.predict(X_TrainMain)
